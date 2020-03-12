@@ -5,6 +5,7 @@
     <class>entity.Videogame</class>
     <class>entity.Achievement</class>
     <class>entity.Player</class>
+    <class>entity.EntityBase</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/videogames?zeroDateTimeBehavior=convertToNull&amp;serverTimezone=UTC"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

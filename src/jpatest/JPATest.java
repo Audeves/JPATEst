@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
+import persisntece.RepositoryBase;
 
 /**
  *
@@ -45,7 +46,10 @@ public class JPATest {
         entityManager.getTransaction().commit();
         System.out.println(entityManager.find(Videogame.class, 1).getName());
         */
-        
+        Videogame vg = entityManager.find(Videogame.class, 1);
+        if (vg != null) {
+            System.out.println(vg);
+        }
         TypedQuery<Videogame>   query = 
                 entityManager.createQuery(
                         "SELECT v FROM Videogame v WHERE v.rating >= :rating", Videogame.class);
@@ -54,6 +58,7 @@ public class JPATest {
         for (Videogame videogame : list) {
             System.out.println(videogame.getName());
         }
+        RepositoryBase<Videogame> repository;
     }
 
 }

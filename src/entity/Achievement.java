@@ -21,23 +21,12 @@ import javax.persistence.Table;
  * @author lv1013
  */
 @Entity
-@Table(name="achievement")
-public class Achievement implements Serializable {
+@Table(name = "achievement")
+public class Achievement extends EntityBase implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    @Column(nullable=false)
+    @Column(nullable = false)
     private String name;
 
     public String getName() {
@@ -48,8 +37,8 @@ public class Achievement implements Serializable {
         this.name = name;
     }
 
-    @ManyToOne(cascade=CascadeType.PERSIST)
-    @JoinColumn(name = "videogame_id", nullable=false)
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "videogame_id", nullable = false)
     private Videogame videogame;
 
     public Videogame getVideogame() {
@@ -60,29 +49,4 @@ public class Achievement implements Serializable {
         this.videogame = videogame;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Achievement)) {
-            return false;
-        }
-        Achievement other = (Achievement) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "entity.Achievement[ id=" + id + " ]";
-    }
-    
 }
