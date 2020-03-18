@@ -13,6 +13,8 @@ import entity.EntityBase;
  * @param <T>
  */
 public interface Repository <T extends EntityBase>{
+    
+    
     T find(int id);
     T save(T entity);
 //    void delete(int id);

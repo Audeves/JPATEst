@@ -5,37 +5,31 @@
  */
 package persisntece;
 
-import entity.EntityBase;
+import entity.Videogame;
 import javax.persistence.EntityManager;
 
 /**
  *
  * @author lv1013
- * @param <T>
  */
-public abstract class RepositoryBase<T extends EntityBase> 
-        implements Repository<T>{
-    
-    private final EntityManager entityManager;
-    private final Class<T> cls;
-    
-    protected RepositoryBase(EntityManager entityManager, Class<T> cls){
-        this.entityManager=entityManager;
-        this.cls=cls;
+public class VideogameRepository extends RepositoryBase<Videogame>{
+
+    public VideogameRepository(EntityManager entityManager, Class<Videogame> cls) {
+        super(entityManager, cls);
     }
 
     @Override
-    public T find(int id) {
+    public Videogame find(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public T save(T entity) {
+    public Videogame save(Videogame entity) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(T entity) {
+    public void delete(Videogame entity) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

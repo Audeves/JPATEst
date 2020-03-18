@@ -22,7 +22,7 @@ public abstract class EntityBase implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+     Integer id;
 
     public Integer getId() {
         return id;
