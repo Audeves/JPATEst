@@ -13,35 +13,37 @@ import javax.persistence.EntityManager;
  * @author lv1013
  * @param <T>
  */
-public abstract class RepositoryBase<T extends EntityBase> 
-        implements Repository<T>{
-    
+public abstract class RepositoryBase<T extends EntityBase>
+        implements Repository<T> {
+
     private final EntityManager entityManager;
     private final Class<T> cls;
-    
-    protected RepositoryBase(EntityManager entityManager, Class<T> cls){
-        this.entityManager=entityManager;
-        this.cls=cls;
+
+    protected RepositoryBase(EntityManager entityManager, Class<T> cls) {
+        this.entityManager = entityManager;
+        this.cls = cls;
     }
 
     @Override
     public T find(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (T) entityManager.find(cls, id);
+
     }
 
     @Override
     public T save(T entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        entityManager.persist(entity);
+        return entity;
     }
 
     @Override
     public void delete(T entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        entityManager.remove(entityManager.merge(entity));
     }
 
     @Override
     public void commit() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
-    
+
 }
