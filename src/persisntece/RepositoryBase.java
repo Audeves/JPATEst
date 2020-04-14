@@ -7,17 +7,17 @@ package persisntece;
 
 import entity.EntityBase;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 
 /**
  *
  * @author lv1013
  * @param <T>
  */
-public abstract class RepositoryBase<T extends EntityBase>
-        implements Repository<T> {
+public abstract class RepositoryBase<T extends EntityBase> implements Repository<T> {
 
-    private final EntityManager entityManager;
-    private final Class<T> cls;
+    protected final EntityManager entityManager;
+    protected final Class<T> cls;
 
     protected RepositoryBase(EntityManager entityManager, Class<T> cls) {
         this.entityManager = entityManager;
@@ -26,24 +26,40 @@ public abstract class RepositoryBase<T extends EntityBase>
 
     @Override
     public T find(int id) {
-        return (T) entityManager.find(cls, id);
+        T entity = this.entityManager.find(cls, id);
+        return entity;
 
     }
 
     @Override
     public T save(T entity) {
-        entityManager.persist(entity);
-        return entity;
+        this.ensureTransaction();
+        if (entity.getId() == null) {
+            this.entityManager.persist(entity);
+            return entity;
+        } else {
+            return this.entityManager.merge(entity);
+        }
     }
 
     @Override
     public void delete(T entity) {
-        entityManager.remove(entityManager.merge(entity));
+        this.ensureTransaction();
+        this.entityManager.remove(entity);
     }
 
     @Override
     public void commit() {
-        
+        EntityTransaction transaction = this.entityManager.getTransaction();
+        if (transaction.isActive()) {
+            transaction.commit();
+        }
     }
 
+    protected void ensureTransaction() {
+        EntityTransaction transaction = this.entityManager.getTransaction();
+        if (!transaction.isActive()) {
+            transaction.begin();
+        }
+    }
 }
