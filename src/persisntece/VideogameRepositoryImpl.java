@@ -32,7 +32,6 @@ public class VideogameRepositoryImpl extends RepositoryBase<Videogame> implement
         if (name == null || name.isEmpty()) {
             // ""
         }
-
         TypedQuery<Videogame> q = this.entityManager.createQuery("SELECT v FROM Videogame v WHERE v.name LIKE :name", this.cls);
         q.setParameter("name", "%" + name + "%");
         return q.getResultList();
